@@ -1,4 +1,4 @@
-#' Is a speciation event complete?
+#' Full genome Fst scan
 #'
 #' @param folder A string. The path to the folder of a given simulation.
 #' @param time Integer. The time step at which to plot the Fst scan.

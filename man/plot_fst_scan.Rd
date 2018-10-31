@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot_fst_scan.R
 \name{plot_fst_scan}
 \alias{plot_fst_scan}
-\title{Is a speciation event complete?}
+\title{Full genome Fst scan}
 \usage{
 plot_fst_scan(folder, time = 5e+05)
 }
@@ -12,5 +12,5 @@ plot_fst_scan(folder, time = 5e+05)
 \item{time}{Integer. The time step at which to plot the Fst scan.}
 }
 \description{
-Is a speciation event complete?
+Full genome Fst scan
 }
