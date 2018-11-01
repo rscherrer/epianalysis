@@ -51,7 +51,7 @@ plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9,
 
   myHeatmap <- ggplot(data = specProbDF, mapping = aes(x = habitat_asymmetry, y = sel_coeff_ecol, fill = specProb)) + geom_tile() + xlab(label = xlab) + ylab(label = ylab) + scale_fill_gradient(name = "Speciation probability") + theme_bw() + theme(text=element_text(family="Garamond", size=14))
   print(myHeatmap)
-  ggsave(plotname, myHeatmap, width=4, height=4)
+  ggsave(plotname, myHeatmap, width=6, height=4)
 
   setwd(homedir)
 
