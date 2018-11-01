@@ -4,7 +4,8 @@
 \alias{plot_probability_heatmap}
 \title{Speciation likelihood heatmap}
 \usage{
-plot_probability_heatmap(dir = ".", is.complete, ri.threshold = 0.9)
+plot_probability_heatmap(dir = ".", is.complete, ri.threshold = 0.9,
+  isRipa = F)
 }
 \arguments{
 \item{dir}{A string. The path to the folders containing the simulations.}
@@ -12,6 +13,8 @@ plot_probability_heatmap(dir = ".", is.complete, ri.threshold = 0.9)
 \item{is.complete}{A data frame. Contains information about habitat asymmetry, selection coefficient and whether speciation was complete or not (see argument `ri.threshold`) for each simulation. Typically the output of `find_completed`.}
 
 \item{ri.threshold}{Numeric. If `is.complete` is not provided, the function will run `find_completed` to create it. `ri.threshold` is the threshold value of final mating isolation above which speciation is complete.}
+
+\item{isRipa}{Logical. Whether to plot parameter space in terms of resource ratio and niche width (as in Ripa et al.) or in terms of habitat asymmetry and selection coefficient (FALSE).}
 }
 \description{
 Speciation likelihood heatmap

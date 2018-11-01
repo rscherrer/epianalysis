@@ -3,9 +3,10 @@
 #' @param dir A string. The path to the folders containing the simulations.
 #' @param is.complete A data frame. Contains information about habitat asymmetry, selection coefficient and whether speciation was complete or not (see argument `ri.threshold`) for each simulation. Typically the output of `find_completed`.
 #' @param ri.threshold Numeric. If `is.complete` is not provided, the function will run `find_completed` to create it. `ri.threshold` is the threshold value of final mating isolation above which speciation is complete.
+#' @param isRipa Logical. Whether to plot parameter space in terms of resource ratio and niche width (as in Ripa et al.) or in terms of habitat asymmetry and selection coefficient (FALSE).
 
 # Function to plot speciation probability heatmap
-plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9) {
+plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9, isRipa = F) {
 
   homedir <- getwd()
   setwd(dir)
@@ -33,24 +34,24 @@ plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9)
   colnames(specProbDF)[1:2] <- names(is.complete)[1:2]
   specProbDF <- as.data.frame(specProbDF)
 
-  # Rearrange into a matrix suitable for plotting
-  library(reshape2)
-  specProbMat <- acast(specProbDF, habitat_asymmetry ~ sel_coeff_ecol, value.var = "specProb")
+  if(isRipa) {
+    specProbDF$habitat_asymmetry <- 1 - specProbDF$habitat_asymmetry
+    specProbDF$sel_coeff_ecol <- 1 / sqrt(2 * specProbDF$sel_coeff_ecol)
+  }
 
   library(extrafont)
   loadfonts()
 
-  # Plot
-  library(fields)
-  pdf("../../plots/heatmap_baseR.pdf", family = "Garamond", width = 4, height = 4)
-  image.plot(x = as.numeric(rownames(specProbMat)), y = as.numeric(colnames(specProbMat)), z = specProbMat, xlab = "Habitat asymmetry", ylab = "Selection coefficient", main = "Speciation probability", las = 1)
-  dev.off()
-
   # GGplot
   library(ggplot2)
-  myHeatmap <- ggplot(data = specProbDF, mapping = aes(x = habitat_asymmetry, y = sel_coeff_ecol, fill = specProb)) + geom_tile() + xlab(label = "Habitat asymmetry") + ylab(label = "Selection coefficient") + scale_fill_gradient(name = "Speciation probability") + theme_bw() + theme(text=element_text(family="Garamond", size=14))
+
+  plotname <- paste0("../../plots/likelihood_scape", ifelse(!isRipa, ".pdf", "_ripaetal.pdf"))
+  xlab <- ifelse(!irRipa, "Habitat asymmetry", "Resource ratio")
+  ylab <- ifelse(!isRipa, "Selection coefficient", "Niche width")
+
+  myHeatmap <- ggplot(data = specProbDF, mapping = aes(x = habitat_asymmetry, y = sel_coeff_ecol, fill = specProb)) + geom_tile() + xlab(label = xlab) + ylab(label = ylab) + scale_fill_gradient(name = "Speciation probability") + theme_bw() + theme(text=element_text(family="Garamond", size=14))
   print(myHeatmap)
-  ggsave("../../plots/heatmap_ggplot.pdf", myHeatmap, width=4, height=4)
+  ggsave(plotname, myHeatmap, width=4, height=4)
 
   setwd(homedir)
 
