@@ -55,7 +55,4 @@ plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9,
 
   setwd(homedir)
 
-  # Return the matrix of speciation probabilities used to make the heatmap
-  return(specProbMat)
-
 }
