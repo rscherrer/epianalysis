@@ -4,15 +4,15 @@
 \alias{extract_trajectories}
 \title{Extract trajectories in speciation cube}
 \usage{
-extract_trajectories(dir, is.complete)
+extract_trajectories(datapath, outpath)
 }
 \arguments{
-\item{dir}{A string. The path to the folders containing the simulations.}
+\item{datapath}{Path to where the simulation folders are.}
 
-\item{is.complete}{A data frame. Contains information about habitat asymmetry, selection coefficient and whether speciation was complete or not (see argument `ri.threshold`) for each simulation. Typically the output of `find_completed`.}
+\item{outpath}{Where to save the output data frame.}
 }
 \value{
-A list of data frames, one for each simulation. Each data frame contains three columns, one for each dimension of the speciation cube.
+A data frame with one column for time and three columns per simulation containing coordinates in speciation cube. The data frame is saved as a CSV file in outpath.
 }
 \description{
 Extract trajectories in speciation cube
