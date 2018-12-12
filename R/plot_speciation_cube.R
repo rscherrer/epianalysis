@@ -39,7 +39,7 @@ plot_speciation_cube <- function(trajectories, saveto, font) {
               main = "Speciation cube",
               xlab = "Spatial isolation",
               ylab = "Ecological isolation",
-              zlab = "Reproductive isolation",
+              zlab = "Mating isolation",
               colkey = F,
               xlim = c(0,1),
               ylim = c(0,1),
