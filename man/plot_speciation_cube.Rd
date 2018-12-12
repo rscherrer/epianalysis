@@ -4,7 +4,7 @@
 \alias{plot_speciation_cube}
 \title{Plot simulations in speciation cube}
 \usage{
-plot_speciation_cube(trajectories, saveto, font)
+plot_speciation_cube(trajectories, saveto, font, rarify = F, dim, th)
 }
 \arguments{
 \item{trajectories}{A data frame containing x, y and z coordinates for each simulation, so the number of columns (time column excluded) should be a multiple of 3. A time column may be present and entitled "time", but another name will yield a bug. The time column is not needed.}
@@ -12,6 +12,12 @@ plot_speciation_cube(trajectories, saveto, font)
 \item{saveto}{Full path, including file name, to where to save the pdf figure. If not specified, the figure will be returned in R.}
 
 \item{font}{Font to be used in the figure. Defaults to Helvetica. See those available with the package extrafont.}
+
+\item{rarify}{Whether to rarify the data after the simulations have converged, in order to alleviate the amount of data. If TRUE, then dim and th have to be specified.}
+
+\item{dim}{The dimension along which to look for convergence. Either of "spatial", "ecological" or "mating".}
+
+\item{th}{The threshold value used to determine convergence, e.g. mating isolation above 0.9.}
 }
 \value{
 A speciation cube plot.
