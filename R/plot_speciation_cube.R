@@ -3,11 +3,15 @@
 #' @param trajectories A data frame containing x, y and z coordinates for each simulation, so the number of columns (time column excluded) should be a multiple of 3. A time column may be present and entitled "time", but another name will yield a bug. The time column is not needed.
 #' @param saveto Full path, including file name, to where to save the pdf figure. If not specified, the figure will be returned in R.
 #' @param font Font to be used in the figure. Defaults to Helvetica. See those available with the package extrafont.
+#' @param rarify Whether to rarify the data after the simulations have converged, in order to alleviate the amount of data. If TRUE, then dim and th have to be specified.
+#' @param dim The dimension along which to look for convergence. Either of "spatial", "ecological" or "mating".
+#' @param th The threshold value used to determine convergence, e.g. mating isolation above 0.9.
+#'
 #' @return A speciation cube plot.
 #' @export
 
 # Function to plot trajectories in speciation cube
-plot_speciation_cube <- function(trajectories, saveto, font) {
+plot_speciation_cube <- function(trajectories, saveto, font, rarify = F, dim, th) {
 
   library(plot3D)
 
@@ -32,10 +36,39 @@ plot_speciation_cube <- function(trajectories, saveto, font) {
     idy <- idx + 1
     idz <- idy + 1
 
+    # For the current simulation
+    # Find when it is virtually done
+    # Rarify after this point
+
+    if(rarify) {
+
+      if(missing(dim)) stop("dim must be provided to rarify")
+      if(missing(th)) stop("th must be provided to rarify")
+
+      # Find the reference column to find from where on to rarify
+      idim <- which(c("spatial", "ecological", "mating") == dim)
+      idim <- c(idx, idy, idz)[idim]
+      refcol <- trajectories[,idim]
+
+      # From where does that column goes above the threshold?
+      # This is the virtual end of the simulation
+      tend <- min(which(refcol > th))
+
+      # Rarify the data after this point because not much happens anyway
+      chosenones <- sort(sample(tend:length(refcol), size = 30, replace = F))
+      chosenones<- c(1:(tend-1), chosenones)
+
+      # Take that subset of the trajectory
+      trajx <- trajectories[chosenones, idx]
+      trajy <- trajectories[chosenones, idy]
+      trajz <- trajectories[chosenones, idz]
+
+    }
+
     # Plot the line inside the speciation cube
-    scatter3D(x = trajectories[,idx],
-              y = trajectories[,idy],
-              z = trajectories[,idz],
+    scatter3D(x = trajx,
+              y = trajy,
+              z = trajz,
               bty = "g",
               phi = 0,
               ticktype = "detailed",
