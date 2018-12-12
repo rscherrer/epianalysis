@@ -21,8 +21,12 @@ plot_speciation_cube <- function(trajectories, saveto, font) {
 
   if(!missing(saveto)) pdf(saveto, family = ifelse(missing(font), "Helvetica", font))
 
+  message("Plotting speciation cube...")
+
   # Loop through simulations
   for(i in seq_len(nsimul)) {
+
+    message(paste("Plotting simulation", i, "out of", nsimul, "..."))
 
     idx <- 3*(i-1) + 1
     idy <- idx + 1
