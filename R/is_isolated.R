@@ -14,12 +14,11 @@ is_isolated <- function(trajectories, dim, th) {
 
   # Count the number of simulations to draw
   if(ncol(trajectories) %% 3 != 0) stop("the number of columns is not a multiple of three")
-  nsimul <- ncol(trajectories) / 3
 
   # Identify the columns to check
   firstcol <- which(c("spatial", "ecological", "mating") == dim)
   if(length(firstcol) == 0) stop("incorrect cube dimension")
-  cols <- seq(firstcol, nsimul, 3)
+  cols <- seq(firstcol, ncol(trajectories), 3)
 
   # Compare the final value of each target column to the threshold
   out <- trajectories[nrow(trajectories),cols] > th
