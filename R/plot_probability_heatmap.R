@@ -12,11 +12,13 @@ plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9,
   setwd(dir)
 
   # If identity of the completed speciation events is provided...
-  if(exists("is.complete")) {
+  if(!missing(is.complete)) {
 
-    message("is.complete was provided")
+    message("list of completed events was provided...")
 
   } else {
+
+    message("finding completed speciation events (this might take some time)...")
 
     # Find what speciation events are complete
     is.complete <- find_completed(dir = ".", ri.threshold = ri.threshold)
@@ -34,13 +36,15 @@ plot_probability_heatmap <- function(dir = ".", is.complete, ri.threshold = 0.9,
   colnames(specProbDF)[1:2] <- names(is.complete)[1:2]
   specProbDF <- as.data.frame(specProbDF)
 
+  # Possibility to turn it into habitat similarity and niche width
   if(isRipa) {
     specProbDF$habitat_asymmetry <- 1 - specProbDF$habitat_asymmetry
     specProbDF$sel_coeff_ecol <- 1 / sqrt(2 * specProbDF$sel_coeff_ecol)
   }
 
+  # Make the plot
   library(extrafont)
-  loadfonts()
+  loadfonts(quiet = T)
 
   # GGplot
   library(ggplot2)
