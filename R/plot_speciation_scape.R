@@ -36,6 +36,7 @@ plot_speciation_scape <- function(speciation_cube_data, paramspace, dim, thresho
     xlab(paramspace[1]) +
     ylab(paramspace[2])
 
+  print(p)
   return(p)
 
 }
