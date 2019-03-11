@@ -2,26 +2,13 @@
 % Please edit documentation in R/plot_speciation_cube.R
 \name{plot_speciation_cube}
 \alias{plot_speciation_cube}
-\title{Plot simulations in speciation cube}
+\title{Speciation cube}
 \usage{
-plot_speciation_cube(trajectories, saveto, font, rarify = F, dim, th)
+plot_speciation_cube(speciation_cube_data)
 }
 \arguments{
-\item{trajectories}{A data frame containing x, y and z coordinates for each simulation, so the number of columns (time column excluded) should be a multiple of 3. A time column may be present and entitled "time", but another name will yield a bug. The time column is not needed.}
-
-\item{saveto}{Full path, including file name, to where to save the pdf figure. If not specified, the figure will be returned in R.}
-
-\item{font}{Font to be used in the figure. Defaults to Helvetica. See those available with the package extrafont.}
-
-\item{rarify}{Whether to rarify the data after the simulations have converged, in order to alleviate the amount of data. If TRUE, then dim and th have to be specified.}
-
-\item{dim}{The dimension along which to look for convergence. Either of "spatial", "ecological" or "mating".}
-
-\item{th}{The threshold value used to determine convergence, e.g. mating isolation above 0.9.}
-}
-\value{
-A speciation cube plot.
+\item{speciation_cube_data}{A data frame containing coordinates along the three isolation axes (spatial, ecological and mating) through time. Individual simulations are in rows.}
 }
 \description{
-Plot simulations in speciation cube
+This functions plots the simulations in speciation cube. Avoid using it to visualize directly in RStudio, takes too long. Instead, prefer calling a pdf device before running the function, a view the PDF. Much faster.
 }
