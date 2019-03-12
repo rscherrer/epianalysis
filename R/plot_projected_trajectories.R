@@ -5,11 +5,12 @@
 #' @param speciation_cube_data A data frame containing coordinates along the three isolation axes (spatial, ecological and mating) through time. Individual simulations are in rows.
 #' @param vars The two variables along which to plot the simulations.
 #' @param colvar Optional. The name of the variable to use to set colors according to.
+#' @param show_legend Optional. Whether to show the legend.
 #' @export
 
 
 # Function to plot trajectories in 2D
-plot_projected_trajectories <- function(speciation_cube_data, vars, colvar) {
+plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T) {
 
   if(!missing(colvar)) {
 
@@ -73,7 +74,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar) {
     }
   }
 
-  if(!missing(colvar)) {
+  if(!missing(colvar) & show_legend) {
 
     legend("bottomright", legend = levels(as.factor(speciation_cube_data[, colvar])), col = colors, pch = 16, title = colvar)
 
