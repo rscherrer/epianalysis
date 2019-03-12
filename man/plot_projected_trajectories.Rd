@@ -4,7 +4,8 @@
 \alias{plot_projected_trajectories}
 \title{Plot simulations}
 \usage{
-plot_projected_trajectories(speciation_cube_data, vars, colvar)
+plot_projected_trajectories(speciation_cube_data, vars, colvar,
+  show_legend = T)
 }
 \arguments{
 \item{speciation_cube_data}{A data frame containing coordinates along the three isolation axes (spatial, ecological and mating) through time. Individual simulations are in rows.}
@@ -12,6 +13,8 @@ plot_projected_trajectories(speciation_cube_data, vars, colvar)
 \item{vars}{The two variables along which to plot the simulations.}
 
 \item{colvar}{Optional. The name of the variable to use to set colors according to.}
+
+\item{show_legend}{Optional. Whether to show the legend.}
 }
 \description{
 This functions plots the simulations in 2D, along chosen dimensions.

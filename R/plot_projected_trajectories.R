@@ -54,7 +54,6 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar) {
         x = coordinates_per_variable[[1]][,i],
         y = coordinates_per_variable[[2]][,i],
         type = "l",
-        main = "Speciation trajectories",
         xlab = vars[1],
         ylab = vars[2],
         las = 1,
