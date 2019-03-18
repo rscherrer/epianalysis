@@ -41,6 +41,8 @@ plot_genome_scan_through_time <- function(path = ".", var) {
     scale_fill_gradient(name = var) +
     theme_bw()
 
+  setwd(homedir)
+
   return(genome_scan)
 
 }
