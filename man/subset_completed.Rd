@@ -14,8 +14,6 @@ subset_completed(speciation_cube_data, dim, threshold, n)
 \item{threshold}{The threshold above which the value of the criterion variable means complete speciation}
 
 \item{n}{How many of the last time points to average?}
-
-\item{paramspace}{The names of the two parameters to plot against.}
 }
 \value{
 A subset of \code{speciation_cube_data}.

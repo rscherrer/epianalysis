@@ -1,7 +1,6 @@
 #' Subset completed events
 #'
 #' @param speciation_cube_data A data frame containing trajectories in speciation cube for all simulations (in rows).
-#' @param paramspace The names of the two parameters to plot against.
 #' @param dim The variable to use as a criterion for complete speciation.
 #' @param threshold The threshold above which the value of the criterion variable means complete speciation
 #' @param n How many of the last time points to average?
