@@ -20,3 +20,6 @@ A logical vector indicated simulations that match the search.
 \description{
 Find simulations
 }
+\note{
+If the parameter names are not found in the columns of \code{speciation_cube_data}, the function does as if \code{speciation_cube_data} was not supplied.
+}

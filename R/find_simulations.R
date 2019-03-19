@@ -3,6 +3,7 @@
 #' @param speciation_cube_data A data frame containing trajectories in speciation cube for all simulations (in rows).
 #' @param path If \code{speciation_cube_data} not provided, the path to where the simulation data are to be found.
 #' @param pars A list of parameter values. The names in the list should be the names of the parameters as they appear in the parameters.txt file.
+#' @note If the parameter names are not found in the columns of \code{speciation_cube_data}, the function does as if \code{speciation_cube_data} was not supplied.
 #'
 #' @return A logical vector indicated simulations that match the search.
 #' @export
