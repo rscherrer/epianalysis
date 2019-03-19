@@ -23,7 +23,7 @@ plot_genome_scan <- function(path = ".", var, time = 500000) {
 
   setwd(homedir)
 
-  plot(Fst ~ location, data = genome, type = "h", xlab = "Genome location", las = 1, mgp = c(2.2, 1, 0))
+  plot(genome[,var] ~ genome$location, type = "h", xlab = "Genome location", las = 1, mgp = c(2.2, 1, 0))
   # Add chromosomes on top of the chart
   y <- max(genome[,var]) + 0.1 * (max(genome[,var]) - min(genome[,var]))
   for(i in unique(genome$linkage.group)) {
