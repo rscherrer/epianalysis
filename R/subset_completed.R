@@ -11,11 +11,7 @@
 # Function to isolate a subset of the data
 subset_completed <- function(speciation_cube_data, dim, threshold, n) {
 
-  # Make a vector of yes/no for speciation completion according to the specified criterion
-  speciation_columns <- colnames(speciation_cube_data)[grep(dim, colnames(speciation_cube_data))]
-  speciation_columns <- speciation_columns[(length(speciation_columns) - n + 1):length(speciation_columns)]
-  speciation_criterion <- rowMeans(cbind(speciation_cube_data[, speciation_columns]))
-  is_speciation <- speciation_criterion > threshold
+  is_speciation <- find_completed(speciation_cube_data, dim, threshold, n)
 
   speciation_cube_data <- speciation_cube_data[is_speciation,]
   return(speciation_cube_data)
