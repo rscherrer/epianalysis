@@ -15,6 +15,8 @@ plot_projected_trajectories(speciation_cube_data, vars, colvar,
 \item{colvar}{Optional. The name of the variable to use to set colors according to.}
 
 \item{show_legend}{Optional. Whether to show the legend.}
+
+\item{xlim, ylim}{Ranges of values to plot.}
 }
 \description{
 This functions plots the simulations in 2D, along chosen dimensions.

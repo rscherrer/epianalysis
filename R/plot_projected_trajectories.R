@@ -6,6 +6,7 @@
 #' @param vars The two variables along which to plot the simulations.
 #' @param colvar Optional. The name of the variable to use to set colors according to.
 #' @param show_legend Optional. Whether to show the legend.
+#' @param xlim,ylim Ranges of values to plot.
 #' @export
 
 
