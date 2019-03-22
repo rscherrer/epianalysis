@@ -5,7 +5,7 @@
 \title{Plot simulations}
 \usage{
 plot_projected_trajectories(speciation_cube_data, vars, colvar,
-  show_legend = T)
+  show_legend = T, xlim, ylim)
 }
 \arguments{
 \item{speciation_cube_data}{A data frame containing coordinates along the three isolation axes (spatial, ecological and mating) through time. Individual simulations are in rows.}

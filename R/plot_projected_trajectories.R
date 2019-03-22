@@ -10,7 +10,7 @@
 
 
 # Function to plot trajectories in 2D
-plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T) {
+plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T, xlim, ylim) {
 
   if(!missing(colvar)) {
 
@@ -46,6 +46,10 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
 
   })
 
+  if(missing(xlim)) xlim <- c(min(coordinates_per_variable[[1]]), max(coordinates_per_variable[[1]]))
+
+  if(missing(ylim)) ylim <- c(min(coordinates_per_variable[[2]]), max(coordinates_per_variable[[2]]))
+
   # Plot the lines
   for(i in seq_len(nrow(speciation_cube_data))) {
 
@@ -58,8 +62,8 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
         xlab = vars[1],
         ylab = vars[2],
         las = 1,
-        xlim = c(min(coordinates_per_variable[[1]]), max(coordinates_per_variable[[1]])),
-        ylim = c(min(coordinates_per_variable[[2]]), max(coordinates_per_variable[[2]])),
+        xlim = xlim,
+        ylim = ylim,
         col = as.character(color_labels[i])
       )
 
