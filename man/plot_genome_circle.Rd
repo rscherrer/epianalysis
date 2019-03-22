@@ -5,7 +5,8 @@
 \title{Plot circular genome scan}
 \usage{
 plot_genome_circle(path = ".", vars = c("Fst", "varP"), time = 5e+05,
-  tracks = seq_along(vars), cols = palette()[seq_along(vars)])
+  tracks = seq_along(vars), cols = palette()[seq_along(vars)],
+  legend = T)
 }
 \arguments{
 \item{path}{Where the data for the given simulation are to be found.}

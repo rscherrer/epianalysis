@@ -7,10 +7,11 @@
 #' @param time What time point?
 #' @param tracks A vector of integer indices indicating what track (i.e. line from the outside inwards) each variable should appear on. Should be of the same length as \code{vars}. To overlay variables on the same track, assign to them the same index.
 #' @param cols Colors. Should be as long as \code{vars}. If not specified, default palette colors are taken.
+#' @param legend Do we plot the legend?
 #' @export
 
 # Function to plot variables across the genome
-plot_genome_circle <- function(path = ".", vars = c("Fst", "varP"), time = 500000, tracks = seq_along(vars), cols = palette()[seq_along(vars)]) {
+plot_genome_circle <- function(path = ".", vars = c("Fst", "varP"), time = 500000, tracks = seq_along(vars), cols = palette()[seq_along(vars)], legend = T) {
 
   library(circlize)
 
@@ -35,7 +36,7 @@ plot_genome_circle <- function(path = ".", vars = c("Fst", "varP"), time = 50000
   dim(genome)
   colnames(genome)
 
-  layout(rbind(c(1, 1, 1, 1, 1, 2)))
+  if(legend) layout(rbind(c(1, 1, 1, 1, 1, 2)))
   for(i in seq_along(vars)) {
 
     if(i == 1) circos.initialize(factors = genome$linkage.group, x = genome$location)
@@ -55,7 +56,9 @@ plot_genome_circle <- function(path = ".", vars = c("Fst", "varP"), time = 50000
     )
   }
 
-  plot.new()
-  legend("left", legend = vars, col = cols, pch = 16)
+  if(legend) {
+    plot.new()
+    legend("left", legend = vars, col = cols, pch = 16)
+  }
 
 }
