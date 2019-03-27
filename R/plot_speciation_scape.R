@@ -7,6 +7,7 @@
 #' @param dim The variable to use as a criterion for complete speciation.
 #' @param threshold The threshold above which the value of the criterion variable means complete speciation
 #' @param n How many of the last time points to average?
+#' @export
 
 # Function to plot speciation probability across parameter space
 plot_speciation_scape <- function(speciation_cube_data, paramspace, dim, threshold, n = 1) {

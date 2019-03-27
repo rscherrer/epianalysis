@@ -6,6 +6,7 @@
 #' @param vars What variables through time to extract from simulation output data files?
 #' @param params What parameter values to record for each simulation?
 #' @return A data frame with individual simulationa in rows, and in columns the variables of interest at each time point, as well as the values of the selected parameters.
+#' @export
 
 # Function to extract a set of data through time from the simulations + parameter values
 extract_from_simulations <- function(inpath, vars, params) {

@@ -2,6 +2,7 @@
 #'
 #' @param folder A string. The path to the folder of a given simulation.
 #' @param time Integer. The time step at which to plot the Fst scan.
+#' @export
 
 # Plot Fst throughout the genome at a given time
 plot_fst_scan <- function(folder, time = 500000) {

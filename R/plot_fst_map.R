@@ -1,6 +1,7 @@
 #' Fst scan through time
 #'
 #' @param folder A string. The path to the folder of a given simulation.
+#' @export
 
 # Function to map Fst along the genome through time
 plot_fst_map <- function(folder) {

@@ -3,6 +3,7 @@
 #' @param df A data frame with numeric columns.
 #' @param nbins Integer. The number of bins to calculate averages for when smoothing.
 #' @return A matrix with the same number of columns as `df` and `nbins` columns.
+#' @export
 
 # Function to smoothen a data frame by taking bin-averages
 smoothen_bins <- function(df, nbins) {

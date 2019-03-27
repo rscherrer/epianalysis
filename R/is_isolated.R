@@ -4,6 +4,7 @@
 #' @param dim Along what dimension to check? Either of "spatial", "ecological" or "mating".
 #' @param th Threshold value for the coordinate at the final time step. Above this value, returns a TRUE, otherwise a FALSE.
 #' @return A boolean vector indicating which simulations did reach at least the specified threshold value along the specified dimension of the speciation cube.
+#' @export
 
 # Function to tell what simulations have reached isolation in some dimension of the cube
 is_isolated <- function(trajectories, dim, th) {
