@@ -8,11 +8,12 @@
 #' @param show_legend Optional. Whether to show the legend.
 #' @param xlim,ylim Ranges of values to plot.
 #' @param confint Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line.
+#' @param col Color to plot the lines or the confidence interval. If specified, overrides the coloration per parameter value, if any.
 #' @export
 
 
 # Function to plot trajectories in 2D
-plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T, xlim, ylim, confint) {
+plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T, xlim, ylim, confint, col) {
 
   if(!missing(colvar)) {
 
@@ -76,19 +77,21 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
     polygon(
       x = poly_x,
       y = poly_y,
-      col = "lightgray",
+      col = ifelse(missing(col), "lightgray", col),
       border = NA
     )
 
     lines(
       x = coordinates_per_variable[[1]][,1],
-      y = mean_y,
+      y = mean_y
     )
 
   } else {
 
     # Plot the lines
     for(i in seq_len(nrow(speciation_cube_data))) {
+
+      if(missing(col)) col <- as.character(color_labels[i])
 
       if(i == 1) {
 
@@ -101,7 +104,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
           las = 1,
           xlim = xlim,
           ylim = ylim,
-          col = as.character(color_labels[i])
+          col = col
         )
 
       } else {
@@ -109,7 +112,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
         lines(
           x = coordinates_per_variable[[1]][,i],
           y = coordinates_per_variable[[2]][,i],
-          col = as.character(color_labels[i])
+          col = col
         )
 
       }

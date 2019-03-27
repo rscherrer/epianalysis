@@ -5,7 +5,7 @@
 \title{Plot simulations}
 \usage{
 plot_projected_trajectories(speciation_cube_data, vars, colvar,
-  show_legend = T, xlim, ylim, confint)
+  show_legend = T, xlim, ylim, confint, col)
 }
 \arguments{
 \item{speciation_cube_data}{A data frame containing coordinates along the three isolation axes (spatial, ecological and mating) through time. Individual simulations are in rows.}
@@ -19,6 +19,8 @@ plot_projected_trajectories(speciation_cube_data, vars, colvar,
 \item{xlim, ylim}{Ranges of values to plot.}
 
 \item{confint}{Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line.}
+
+\item{col}{Color to plot the lines or the confidence interval. If specified, overrides the coloration per parameter value, if any.}
 }
 \description{
 This functions plots the simulations in 2D, along chosen dimensions.
