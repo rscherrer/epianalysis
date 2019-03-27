@@ -9,11 +9,12 @@
 #' @param xlim,ylim Ranges of values to plot.
 #' @param confint Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line.
 #' @param col Color to plot the lines or the confidence interval. If specified, overrides the coloration per parameter value, if any.
+#' @param add Whether to append to a previous plot. Defaults to FALSE.
 #' @export
 
 
 # Function to plot trajectories in 2D
-plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T, xlim, ylim, confint, col) {
+plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show_legend = T, xlim, ylim, confint, col, add = F) {
 
   if(!missing(colvar)) {
 
@@ -58,19 +59,21 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
     # If a confidence interval of the Y-variable is to be plotted
     # Calculate the average trajectory
     # Calculate the confidence interval
-    mean_y <- rowMeans(coordinates_per_variable[[2]])
+    median_y <- apply(coordinates_per_variable[[2]], 1, median)
     confidence_interval_y <- t(apply(coordinates_per_variable[[2]], 1, quantile, probs = confint))
 
-    plot(
-      x = coordinates_per_variable[[1]][,1],
-      y = mean_y,
-      type = "n",
-      xlab = vars[1],
-      ylab = vars[2],
-      las = 1,
-      xlim = xlim,
-      ylim = ylim
-    )
+    if(!add) {
+      plot(
+        x = coordinates_per_variable[[1]][,1],
+        y = median_y,
+        type = "n",
+        xlab = vars[1],
+        ylab = vars[2],
+        las = 1,
+        xlim = xlim,
+        ylim = ylim
+      )
+    }
 
     poly_x <- c(coordinates_per_variable[[1]][,1], rev(coordinates_per_variable[[1]][,1]))
     poly_y <- c(confidence_interval_y[,1], rev(confidence_interval_y[,2]))
@@ -83,7 +86,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
 
     lines(
       x = coordinates_per_variable[[1]][,1],
-      y = mean_y
+      y = median_y
     )
 
   } else {
@@ -93,7 +96,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
 
       if(missing(col)) col <- as.character(color_labels[i])
 
-      if(i == 1) {
+      if(i == 1 & !add) {
 
         plot(
           x = coordinates_per_variable[[1]][,i],
