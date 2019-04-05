@@ -84,9 +84,13 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
       border = NA
     )
 
+    linecol <- c(col2rgb(col))/255/2
+    linecol <- rgb(linecol[1], linecol[2], linecol[3])
+
     lines(
       x = coordinates_per_variable[[1]][,1],
-      y = median_y
+      y = median_y,
+      col = linecol
     )
 
   } else {
