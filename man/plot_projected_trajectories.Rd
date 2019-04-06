@@ -18,7 +18,7 @@ plot_projected_trajectories(speciation_cube_data, vars, colvar,
 
 \item{xlim, ylim}{Ranges of values to plot.}
 
-\item{confint}{Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line.}
+\item{confint}{Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line. To plot mean and standard error instead of a confidence interval, provide this argument with an object of length different than 2 (which is what the function expects as boundaries of the confidence interval).}
 
 \item{col}{Color to plot the lines or the confidence interval. If specified, overrides the coloration per parameter value, if any.}
 

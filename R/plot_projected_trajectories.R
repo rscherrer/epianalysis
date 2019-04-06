@@ -7,7 +7,7 @@
 #' @param colvar Optional. The name of the variable to use to set colors according to.
 #' @param show_legend Optional. Whether to show the legend.
 #' @param xlim,ylim Ranges of values to plot.
-#' @param confint Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line.
+#' @param confint Confidence interval probabilities. If specified, the confidence interval is plotted instead of every single line. To plot mean and standard error instead of a confidence interval, provide this argument with an object of length different than 2 (which is what the function expects as boundaries of the confidence interval).
 #' @param col Color to plot the lines or the confidence interval. If specified, overrides the coloration per parameter value, if any.
 #' @param add Whether to append to a previous plot. Defaults to FALSE.
 #' @export
@@ -57,15 +57,25 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
   if(!missing(confint)) {
 
     # If a confidence interval of the Y-variable is to be plotted
-    # Calculate the average trajectory
-    # Calculate the confidence interval
-    median_y <- apply(coordinates_per_variable[[2]], 1, median)
-    confidence_interval_y <- t(apply(coordinates_per_variable[[2]], 1, quantile, probs = confint))
+    # Calculate the median and confidence interval
+    if(length(confint) == 2) {
+
+      mode_y <- apply(coordinates_per_variable[[2]], 1, median)
+      confidence_interval_y <- t(apply(coordinates_per_variable[[2]], 1, quantile, probs = confint))
+
+    } else {
+
+      # If confidence interval argument does not have 2 elements,plot  mean and standard error instead
+      mode_y <- apply(coordinates_per_variable[[2]], 1, mean)
+      standard_error_y <- sqrt(apply(coordinates_per_variable[[2]], 1, var) / nrow(coordinates_per_variable[[2]]))
+      confidence_interval_y <- cbind(mode_y - standard_error_y, mode_y + standard_error_y)
+
+    }
 
     if(!add) {
       plot(
         x = coordinates_per_variable[[1]][,1],
-        y = median_y,
+        y = mode_y,
         type = "n",
         xlab = vars[1],
         ylab = vars[2],
@@ -89,7 +99,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
 
     lines(
       x = coordinates_per_variable[[1]][,1],
-      y = median_y,
+      y = mode_y,
       col = linecol
     )
 
