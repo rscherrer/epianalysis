@@ -7,14 +7,14 @@
 #' @param type Either 1 -- shows lines for all simulations, 2 -- shows median and specified quantiles, 3 -- shows mean and standard error.
 #' @param colvar Optional. The variable used to assign different colors to different groups of simulations.
 #' @param xlim,ylim Plot limits (optional).
-#' @param confint The quantiles to use as borders of shaded areas (only if type == 2).
+#' @param quantiles The quantiles to use as borders of shaded areas (only if type == 2).
 #' @param cols A vector of colors to use for each group, only if colvar is specified.
 #' @param show_legend Whether to display the legend. Defaults to FALSE.
 #' @export
 
 
 # Function to plot simulations through time
-plot_through_time <- function(data, var, type = 1, colvar, xlim, ylim, confint, cols, show_legend = F) {
+plot_through_time <- function(data, var, type = 1, colvar, xlim, ylim, quantiles, cols, show_legend = F) {
 
   # Extract timepoints
   timepoints <- as.numeric(sapply(strsplit(colnames(data)[grep(var, colnames(data))], "_"), "[", 2))
@@ -26,16 +26,20 @@ plot_through_time <- function(data, var, type = 1, colvar, xlim, ylim, confint, 
     colors <- color_factor
 
     # Set default colors if colors not properly specified
-    if(missing(cols) | length(cols) != nlevels(colors)) {
+    if(missing(cols)) {
 
       cols <- gray(seq(0, 0.5, length.out = nlevels(colors)))
 
-    }
+    } else if(length(cols) != nlevels(color_factor)) cols <- gray(seq(0, 0.5, length.out = nlevels(colors)))
 
     levels(colors) <- cols
     colors <- as.character(colors)
 
-  } else cols <- colors <- "black"
+  } else {
+    cols <- "black"
+    colors <- rep("black", nrow(data))
+    color_factor <- NULL
+  }
 
 
   # Reduce to variable of interest and rearrange
@@ -75,15 +79,15 @@ plot_through_time <- function(data, var, type = 1, colvar, xlim, ylim, confint, 
       curr_color <- cols[i]
 
       # Subset the data to the current factor level only if a grouping factor is specified
-      if(exists("colvar")) {
+      if(!is.null(color_factor)) {
 
         curr_level <- levels(color_factor)[i]
         data <- data[, color_factor == curr_level]
 
       }
 
-      lowerbounds <- apply(data, 1, quantile, confint[1])
-      upperbounds <- apply(data, 1, quantile, confint[2])
+      lowerbounds <- apply(data, 1, quantile, quantiles[1])
+      upperbounds <- apply(data, 1, quantile, quantiles[2])
       poly_x <- c(timepoints, rev(timepoints))
       poly_y <- c(lowerbounds, rev(upperbounds))
       curr_rgb <- c(col2rgb(curr_color))/255
@@ -107,7 +111,7 @@ plot_through_time <- function(data, var, type = 1, colvar, xlim, ylim, confint, 
       curr_color <- cols[i]
 
       # Subset the data to the current factor level only if a grouping factor is specified
-      if(exists("colvar")) {
+      if(!is.null(color_factor)) {
 
         curr_level <- levels(color_factor)[i]
         data <- data[, color_factor == curr_level]

@@ -4,8 +4,8 @@
 \alias{plot_through_time}
 \title{Plot simulation metric through time}
 \usage{
-plot_through_time(data, var, type = 1, colvar, xlim, ylim, confint, cols,
-  show_legend = F)
+plot_through_time(data, var, type = 1, colvar, xlim, ylim, quantiles,
+  cols, show_legend = F)
 }
 \arguments{
 \item{data}{A data frame containing coordinates along the three isolation axes (spatial, ecological and mating), or even other variables, through time. Individual simulations are in rows.}
@@ -18,7 +18,7 @@ plot_through_time(data, var, type = 1, colvar, xlim, ylim, confint, cols,
 
 \item{xlim, ylim}{Plot limits (optional).}
 
-\item{confint}{The quantiles to use as borders of shaded areas (only if type == 2).}
+\item{quantiles}{The quantiles to use as borders of shaded areas (only if type == 2).}
 
 \item{cols}{A vector of colors to use for each group, only if colvar is specified.}
 
