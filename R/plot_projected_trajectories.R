@@ -67,7 +67,7 @@ plot_projected_trajectories <- function(speciation_cube_data, vars, colvar, show
 
       # If confidence interval argument does not have 2 elements,plot  mean and standard error instead
       mode_y <- apply(coordinates_per_variable[[2]], 1, mean)
-      standard_error_y <- sqrt(apply(coordinates_per_variable[[2]], 1, var) / nrow(coordinates_per_variable[[2]]))
+      standard_error_y <- sqrt(apply(coordinates_per_variable[[2]], 1, var) / ncol(coordinates_per_variable[[2]]))
       confidence_interval_y <- cbind(mode_y - standard_error_y, mode_y + standard_error_y)
 
     }
