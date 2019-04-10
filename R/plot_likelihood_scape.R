@@ -2,7 +2,7 @@
 #'
 #' This is a function to visualize the speciation probability landscape in a heatmap across parameter space.
 #'
-#' @param speciation_cube_data A data frame containing trajectories in speciation cube for all simulations (in rows).
+#' @param data A data frame containing trajectories in speciation cube for all simulations (in rows).
 #' @param paramspace The names of the two parameters to plot against.
 #' @param dim The variable to use as a criterion for complete speciation.
 #' @param threshold The threshold above which the value of the criterion variable means complete speciation
@@ -10,20 +10,20 @@
 #' @export
 
 # Function to plot speciation probability across parameter space
-plot_speciation_scape <- function(speciation_cube_data, paramspace, dim, threshold, n = 1) {
+plot_likelihood_space <- function(data, paramspace, dim, threshold, n = 1) {
 
   if(length(paramspace) != 2) stop("I need two parameters to make a heatmap across parameter space")
 
   library(ggplot2)
 
   # Make a vector of yes/no for speciation completion according to the specified criterion
-  speciation_columns <- colnames(speciation_cube_data)[grep(dim, colnames(speciation_cube_data))]
+  speciation_columns <- colnames(data)[grep(dim, colnames(data))]
   speciation_columns <- speciation_columns[(length(speciation_columns) - n + 1):length(speciation_columns)]
-  speciation_criterion <- rowMeans(cbind(speciation_cube_data[, speciation_columns]))
+  speciation_criterion <- rowMeans(cbind(data[, speciation_columns]))
   is_speciation <- speciation_criterion > threshold
 
   # Count the proportion of successful speciation events for each parameter combination
-  parameter_sets <- factor(apply(speciation_cube_data[, paramspace], 1, paste, collapse = "_"))
+  parameter_sets <- factor(apply(data[, paramspace], 1, paste, collapse = "_"))
   prob_speciation <- tapply(is_speciation, parameter_sets, function(outcomes_curr_set) mean(as.numeric(outcomes_curr_set)))
   parameter_space <- do.call("rbind", lapply(strsplit(names(prob_speciation), "_"), as.numeric))
   colnames(parameter_space) <- paste0("parameter_", seq_along(paramspace))
