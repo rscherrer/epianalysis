@@ -24,16 +24,16 @@ plot_likelihood_space <- function(data, paramspace, dim, threshold, n = 1) {
 
   # Count the proportion of successful speciation events for each parameter combination
   parameter_sets <- factor(apply(data[, paramspace], 1, paste, collapse = "_"))
-  prob_speciation <- tapply(is_speciation, parameter_sets, function(outcomes_curr_set) mean(as.numeric(outcomes_curr_set)))
-  parameter_space <- do.call("rbind", lapply(strsplit(names(prob_speciation), "_"), as.numeric))
+  prob <- tapply(is_speciation, parameter_sets, function(outcomes_curr_set) mean(as.numeric(outcomes_curr_set)))
+  parameter_space <- do.call("rbind", lapply(strsplit(names(prob), "_"), as.numeric))
   colnames(parameter_space) <- paste0("parameter_", seq_along(paramspace))
 
   # Make a summary table for plotting
-  speciation_prob_data <- data.frame(parameter_space, prob_speciation)
+  prob_data <- data.frame(parameter_space, prob)
 
   # Plot the resulting table
-  p <- ggplot(data = speciation_prob_data, aes(x = parameter_1, y = parameter_2)) +
-    geom_tile(aes(fill = prob_speciation)) +
+  p <- ggplot(data = prob_data, aes(x = parameter_1, y = parameter_2)) +
+    geom_tile(aes(fill = prob)) +
     xlab(paramspace[1]) +
     ylab(paramspace[2])
 
