@@ -7,10 +7,11 @@
 #' @param dim The variable to use as a criterion for complete speciation.
 #' @param threshold The threshold above which the value of the criterion variable means complete speciation
 #' @param n How many of the last time points to average?
+#' @param color_gradient Optional pair of colors for the two extremes of the gradient.
 #' @export
 
 # Function to plot speciation probability across parameter space
-plot_likelihood_space <- function(data, paramspace, dim, threshold, n = 1) {
+plot_likelihood_scape <- function(data, paramspace, dim, threshold, n = 1, color_gradient) {
 
   if(length(paramspace) != 2) stop("I need two parameters to make a heatmap across parameter space")
 
@@ -36,6 +37,7 @@ plot_likelihood_space <- function(data, paramspace, dim, threshold, n = 1) {
     geom_tile(aes(fill = prob)) +
     xlab(paramspace[1]) +
     ylab(paramspace[2])
+  if(!missing(color_gradient)) p <- p + scale_fill_gradient(low = color_gradient[1], high = color_gradient[2])
 
   return(p)
 
