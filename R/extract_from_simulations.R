@@ -101,6 +101,7 @@ extract_from_simulations <- function(inpath, vars, params) {
   extracted_data <- as.data.frame(extracted_data)
   colnames(extracted_data) <- colnames
   extracted_data <- cbind(extracted_data, extracted_params)
+  extracted_data$path <- paste(getwd(), simul_folders, sep = "/")
 
   # Back to home directory
   setwd(homedir)
